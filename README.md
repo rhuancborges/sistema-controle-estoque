@@ -28,7 +28,8 @@ Se quiser contribuir com o projeto, sinta-se à vontade para abrir uma issue ou 
 
 ## Autor
 
-Pietro Ramos
+Pietro Ramos &
+
 Lucas Guerra
 
 ## Licença
