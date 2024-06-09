@@ -21,6 +21,7 @@ Este é um sistema de controle de estoque desenvolvido em Java para pequenos com
 - Java
 - Swing (para a interface gráfica)
 - Git (para controle de versão)
+- PSQL (futuramente)
 
 ## Autor
 
