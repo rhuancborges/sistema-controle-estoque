@@ -21,17 +21,17 @@ public class SupplierController {
         if (supplier == null) {
             throw new IllegalArgumentException("Supplier cannot be null");
         }
-        if (supplier.getId() == null) {
+        else if (supplier.getId() == null) {
             throw new IllegalArgumentException("ID cannot be null");
         }
-        if (supplier.getCnpj() == null || supplier.getCnpj().isEmpty()) {
+        else if (supplier.getCnpj() == null || supplier.getCnpj().isEmpty()) {
             throw new IllegalArgumentException("CNPJ cannot be null or empty");
         }
-        if (supplier.getName() == null || supplier.getName().isEmpty()) {
+        else if (supplier.getName() == null || supplier.getName().isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
         // Verificar se o ID é único antes de registrar o fornecedor
-        if (isSupplierIdUnique(supplier.getId())) {
+        else if (isSupplierIdUnique(supplier.getId())) {
             supplierDAO.registerObject(supplier);
         } else {
             throw new IllegalArgumentException("ID must be unique");

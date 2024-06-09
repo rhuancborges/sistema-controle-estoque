@@ -42,7 +42,7 @@ public class StorageForm extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String productName = productField.getText();
-                    Product product = new Product(productName); // Assuming Product constructor takes name only
+                    Product product = new Product(productName);
                     double quantity = Double.parseDouble(quantityField.getText());
                     MovementType type = MovementType.valueOf((String) typeComboBox.getSelectedItem());
 
@@ -62,7 +62,7 @@ public class StorageForm extends JPanel {
         add(quantityField);
         add(typeLabel);
         add(typeComboBox);
-        add(new JLabel()); // Empty cell
+        add(new JLabel());
         add(adjustButton);
     }
 }

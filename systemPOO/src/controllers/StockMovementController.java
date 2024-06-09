@@ -64,7 +64,7 @@ public class StockMovementController {
         if (product == null) {
             throw new IllegalArgumentException("Product cannot be null");
         }
-        if (quantity <= 0) {
+        else if (quantity <= 0) {
             throw new IllegalArgumentException("Quantity must be greater than zero");
         }
         StockMovement movement = new StockMovement(date, product, type, quantity, supplier);

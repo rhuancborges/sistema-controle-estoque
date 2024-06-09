@@ -60,7 +60,7 @@ public class StorageView extends JPanel {
 
     public void loadMovements() throws Exception {
         List<StockMovement> movements = stockMovementController.getAllMovements();
-        tableModel.setRowCount(0); // Clear existing rows
+        tableModel.setRowCount(0); // Limpando as linhas
         for (StockMovement movement : movements) {
             tableModel.addRow(new Object[]{
                     movement.getDate(), movement.getProduct().getName(), movement.getType(), movement.getQuantity()

@@ -54,7 +54,7 @@ public class SupplierView extends JPanel {
     private void openSupplierForm() {
         SupplierForm supplierForm = new SupplierForm(this, supplierController);
         JOptionPane.showMessageDialog(this, supplierForm, "Add Supplier", JOptionPane.PLAIN_MESSAGE);
-        refreshSuppliers(); // Refresh suppliers after form is closed
+        refreshSuppliers();
     }
 
 

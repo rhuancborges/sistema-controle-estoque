@@ -58,7 +58,7 @@ public class SupplierForm extends JPanel {
         add(cnpjField);
         add(nameLabel);
         add(nameField);
-        add(new JLabel()); // empty cell
+        add(new JLabel());
         add(addButton);
     }
 }

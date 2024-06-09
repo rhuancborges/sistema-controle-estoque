@@ -65,7 +65,7 @@ public class ProductForm extends JPanel {
         add(nameField);
         add(priceLabel);
         add(priceField);
-        add(new JLabel()); // empty cell
+        add(new JLabel());
         add(addButton);
     }
 }

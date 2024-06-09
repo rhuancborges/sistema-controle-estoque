@@ -21,14 +21,14 @@ public class ProductController {
         if (product == null) {
             throw new IllegalArgumentException("Product cannot be null");
         }
-        if (product.getId() == null) {
+        else if (product.getId() == null) {
             throw new IllegalArgumentException("ID cannot be null");
         }
-        if (product.getBarCode() == null || product.getBarCode().isEmpty()) {
+        else if (product.getBarCode() == null || product.getBarCode().isEmpty()) {
             throw new IllegalArgumentException("Barcode cannot be null or empty");
         }
         // Verificar se o ID é único antes de registrar o produto
-        if (isProductIdUnique(product.getId())) {
+        else if (isProductIdUnique(product.getId())) {
             productDAO.registerObject(product);
         } else {
             throw new IllegalArgumentException("ID must be unique");
