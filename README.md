@@ -1,5 +1,7 @@
 # Sistema de Controle de Estoque
 
+## EM DESENVOLVIMENTO. AGUARDE!
+
 Este é um sistema de controle de estoque desenvolvido em Java para pequenos comércios, como mini mercados e varejos.
 
 ## Funcionalidades
@@ -20,13 +22,10 @@ Este é um sistema de controle de estoque desenvolvido em Java para pequenos com
 - Swing (para a interface gráfica)
 - Git (para controle de versão)
 
-## Contribuindo
-
-Se quiser contribuir com o projeto, sinta-se à vontade para abrir uma issue ou enviar um pull request.
-
 ## Autor
 
-Pietro Ramos
+Pietro Ramos &
+
 Lucas Guerra
 
 ## Licença
