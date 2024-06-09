@@ -14,14 +14,20 @@ public class ProductDAOImpl implements ObjectDAO<Product> {
 
     @Override
     public void registerObject(Product product) {
+        if (product == null) {
+            throw new IllegalArgumentException("Product cannot be null");
+        }
         products.add(product);
         System.out.println("Product added: " + product.getName());
     }
 
     @Override
     public Product searchObjectById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("ID cannot be null");
+        }
         for (Product product : products) {
-            if (product.getId().equals(id)) {
+            if (id.equals(product.getId())) {
                 return product;
             }
         }
@@ -29,9 +35,12 @@ public class ProductDAOImpl implements ObjectDAO<Product> {
     }
 
     @Override
-    public Product searchObjectByString(String barCode) {
+    public Product searchObjectByString(String searchString) {
+        if (searchString == null) {
+            throw new IllegalArgumentException("Search string cannot be null");
+        }
         for (Product product : products) {
-            if (product.getBarCode().equals(barCode)) {
+            if (searchString.equals(product.getBarCode())) {
                 return product;
             }
         }

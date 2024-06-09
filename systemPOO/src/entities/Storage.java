@@ -1,31 +1,56 @@
 package entities;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import entities.enums.MovementType;
 
 public class Storage {
-    private Map<Product, Integer> stock;
+    private static Storage instance;
+    private List<StockMovement> stockMovements;
+    private List<Product> products;
 
     public Storage() {
-        this.stock = new HashMap<>();
+        this.stockMovements = new ArrayList<>();
+        this.products = new ArrayList<>();
     }
 
-    public void addProduct(Product product, int quantity) {
-        stock.merge(product, quantity, Integer::sum);
-    }
-
-    public void removeProduct(Product product, int quantity) {
-        if (stock.containsKey(product)) {
-            int currQuantity = stock.get(product);
-            if (currQuantity > quantity) {
-                stock.put(product, currQuantity - quantity);
-            } else {
-                stock.remove(product);
-            }
+    public static Storage getInstance() {
+        if (instance == null) {
+            instance = new Storage();
         }
+        return instance;
+    }
+    public void addProduct(Product product, Double quantity) {
+        if (product == null || quantity <= 0) {
+            throw new IllegalArgumentException("Product must not be null and quantity must be positive");
+        }
+        stockMovements.add(new StockMovement(LocalDate.now(), product, MovementType.ADJUSTMENT, quantity));
+        products.add(product);
+    }
+
+    public void removeProduct(Product product, Double quantity) {
+        if (product == null || quantity <= 0) {
+            throw new IllegalArgumentException("Product must not be null and quantity must be positive");
+        }
+        if (!products.contains(product)) {
+            throw new IllegalArgumentException("Product not found in stock");
+        }
+        stockMovements.add(new StockMovement(LocalDate.now(), product, MovementType.ADJUSTMENT, -quantity));
+        products.remove(product);
     }
 
     public int checkProductQuantity(Product product) {
-        return stock.getOrDefault(product, 0);
+        if (product == null) {
+            throw new IllegalArgumentException("Product must not be null");
+        }
+        int quantity = 0;
+        for (StockMovement movement : stockMovements) {
+            if (movement.getProduct().equals(product) && movement.getType() == MovementType.ADJUSTMENT) {
+                quantity += movement.getQuantity();
+            }
+        }
+        return quantity;
     }
 }

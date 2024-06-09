@@ -1,87 +1,90 @@
 package views.product;
 
-import controllers.ProductController;
-import dao.impl.ProductDAOImpl;
-import entities.Product;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class ProductView extends JFrame {
-	private static final long serialVersionUID = 1L;
-	private ProductController productController;
-    private JTable productTable;
-    private DefaultTableModel tableModel;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
-    public ProductView() {
-        ProductDAOImpl productDAO = new ProductDAOImpl();
-        productController = new ProductController(productDAO);
-        initComponents(productDAO);
+import controllers.ProductController;
+import entities.Product;
+
+public class ProductView extends JPanel {
+    private static final long serialVersionUID = 1L;
+    private ProductController productController;
+    private JTable productTable;
+    private DefaultTableModel productTableModel;
+
+    public ProductView(ProductController productController) {
+        this.productController = productController;
+        initComponents();
     }
 
-    private void initComponents(ProductDAOImpl productDAO) {
-        setTitle("Product Management");
-        setSize(600, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    private void initComponents() {
         setLayout(new BorderLayout());
 
-        JButton addButton = new JButton("Add Product");
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ProductForm(ProductView.this, productController).setVisible(true);
-            }
-        });
-
-        JButton listButton = new JButton("List Products");
-        listButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loadProducts();
-            }
-        });
-
+        // Inicializando o buttonPanel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add(addButton);
-        buttonPanel.add(listButton);
 
-        productTable = new JTable();
-        tableModel = new DefaultTableModel(
-            new Object[]{"ID", "Bar Code", "Name", "Price"}, 0
-        );
-        productTable.setModel(tableModel);
+        JButton addProductButton = new JButton("Add Product");
+        addProductButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openProductForm();
+            }
+        });
 
-        JScrollPane scrollPane = new JScrollPane(productTable);
+        JButton addMovementButton = new JButton("Add Movement");
+        addMovementButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openMovementForm();
+            }
+        });
 
-        add(buttonPanel, BorderLayout.NORTH);
-        add(scrollPane, BorderLayout.CENTER);
+        buttonPanel.add(addProductButton);
+        buttonPanel.add(addMovementButton);
+
+        // Adicionando o buttonPanel ao painel principal
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        // Inicializando a tabela de produtos
+        productTableModel = new DefaultTableModel(new String[] { "ID", "Barcode", "Name", "Price", "Quantity" }, 0);
+        productTable = new JTable(productTableModel);
+
+        add(productTable.getTableHeader(), BorderLayout.NORTH);
+        add(productTable, BorderLayout.CENTER);
+
+        refreshProducts();
     }
 
-    public void loadProducts() {
+    private void openProductForm() {
+        ProductForm productForm = new ProductForm(productController);
+        JOptionPane.showMessageDialog(this, productForm, "Add Product", JOptionPane.PLAIN_MESSAGE);
+        refreshProducts(); // Refresh products after form is closed
+    }
+
+    private void openMovementForm() {
+        // Implementar conforme necessário
+    }
+
+    private void refreshProducts() {
+        productTableModel.setRowCount(0);
         try {
             List<Product> products = productController.getAllProducts();
-            tableModel.setRowCount(0); // Clear existing rows
             for (Product product : products) {
-                tableModel.addRow(new Object[]{
-                    product.getId(), product.getBarCode(), product.getName(), product.getPrice()
-                });
+                Object[] row = { product.getId(), product.getBarCode(), product.getName(), product.getPrice(),
+                        product.getQuantity() };
+                productTableModel.addRow(row);
             }
-            System.out.println("Products loaded successfully");
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error loading products: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error loading products: " + ex.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new ProductView().setVisible(true);
-            }
-        });
     }
 }

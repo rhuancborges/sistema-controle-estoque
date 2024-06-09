@@ -7,9 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SupplierForm extends JFrame {
-	private static final long serialVersionUID = 1L;
-	private JTextField idField;
+public class SupplierForm extends JPanel {
+    private static final long serialVersionUID = 1L;
+    private JTextField idField;
     private JTextField cnpjField;
     private JTextField nameField;
     private SupplierController supplierController;
@@ -22,9 +22,6 @@ public class SupplierForm extends JFrame {
     }
 
     private void initComponents() {
-        setTitle("Add Supplier");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new GridLayout(4, 2));
 
         JLabel idLabel = new JLabel("ID:");
@@ -47,11 +44,9 @@ public class SupplierForm extends JFrame {
 
                     Supplier supplier = new Supplier(id, cnpj, name);
                     supplierController.registerSupplier(supplier);
-                    System.out.println("Supplier added successfully");
-                    parent.loadSuppliers();
-                    dispose();
+                    JOptionPane.showMessageDialog(SupplierForm.this, "Supplier added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    parent.refreshSuppliers();
                 } catch (Exception ex) {
-                    ex.printStackTrace();
                     JOptionPane.showMessageDialog(SupplierForm.this, "Error adding supplier: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }

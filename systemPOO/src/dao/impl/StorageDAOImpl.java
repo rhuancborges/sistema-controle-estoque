@@ -12,17 +12,29 @@ public class StorageDAOImpl implements StorageDAO {
     }
 
     @Override
-    public void addProduct(Product product, int quantity) {
-        stock.addProduct(product, quantity);
+    public void addProduct(Product product, Double quantity) throws Exception {
+        try {
+            stock.addProduct(product, quantity);
+        } catch (Exception e) {
+            throw new Exception("Error adding product to storage", e);
+        }
     }
 
     @Override
-    public void removeProduct(Product product, int quantity) {
-        stock.removeProduct(product, quantity);
+    public void removeProduct(Product product, Double quantity) throws Exception {
+        try {
+            stock.removeProduct(product, quantity);
+        } catch (Exception e) {
+            throw new Exception("Error removing product from storage", e);
+        }
     }
 
     @Override
-    public int checkProductQuantity(Product product) {
-        return stock.checkProductQuantity(product);
+    public int checkProductQuantity(Product product) throws Exception {
+        try {
+            return stock.checkProductQuantity(product);
+        } catch (Exception e) {
+            throw new Exception("Error checking product quantity", e);
+        }
     }
 }

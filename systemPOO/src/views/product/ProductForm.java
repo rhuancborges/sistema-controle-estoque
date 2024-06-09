@@ -2,30 +2,26 @@ package views.product;
 
 import controllers.ProductController;
 import entities.Product;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ProductForm extends JFrame {
-	private static final long serialVersionUID = 1L;
-	private JTextField idField;
+public class ProductForm extends JPanel {
+    private static final long serialVersionUID = 1L;
+    private JTextField idField;
     private JTextField barCodeField;
     private JTextField nameField;
     private JTextField priceField;
     private ProductController productController;
-    private ProductView parent;
 
-    public ProductForm(ProductView parent, ProductController productController) {
-        this.parent = parent;
+    public ProductForm(ProductController productController) {
         this.productController = productController;
         initComponents();
     }
 
     private void initComponents() {
-        setTitle("Add Product");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new GridLayout(5, 2));
 
         JLabel idLabel = new JLabel("ID:");
@@ -51,13 +47,11 @@ public class ProductForm extends JFrame {
                     Double price = Double.parseDouble(priceField.getText());
 
                     Product product = new Product(id, barCode, name, price);
-                    product.setBarCode(barCode);
                     productController.registerProduct(product);
-                    System.out.println("Product added successfully");
-                    parent.loadProducts();
-                    dispose();
+                    JOptionPane.showMessageDialog(ProductForm.this, "Product added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(ProductForm.this, "Price or ID must be a number", "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
-                    ex.printStackTrace();
                     JOptionPane.showMessageDialog(ProductForm.this, "Error adding product: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
