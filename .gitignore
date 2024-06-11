@@ -1,0 +1,16 @@
+# Ignore arquivos de configuração da IDE
+.classpath
+.project
+.settings/
+
+# Ignore diretórios compilados
+bin/
+
+# Ignore arquivos e diretórios temporários
+*.class
+*.log
+*.tmp
+
+# Ignore outros arquivos e diretórios indesejados
+.DS_Store
+Thumbs.db
