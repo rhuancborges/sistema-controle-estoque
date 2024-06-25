@@ -12,16 +12,20 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controllers.ProductController;
+import controllers.StockMovementController;
 import entities.Product;
+import views.stockmovement.StockMovementForm;
 
 public class ProductView extends JPanel {
     private static final long serialVersionUID = 1L;
     private ProductController productController;
+    private StockMovementController stockMovementController;
     private JTable productTable;
     private DefaultTableModel productTableModel;
 
-    public ProductView(ProductController productController) {
+    public ProductView(ProductController productController, StockMovementController stockMovementController) {
         this.productController = productController;
+        this.stockMovementController = stockMovementController;
         initComponents();
     }
 
@@ -70,7 +74,8 @@ public class ProductView extends JPanel {
     }
 
     private void openMovementForm() {
-        // Implementar conforme necessário
+        StockMovementForm movementForm = new StockMovementForm(stockMovementController);
+        movementForm.setVisible(true);
     }
 
     private void refreshProducts() {

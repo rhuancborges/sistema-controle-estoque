@@ -40,11 +40,10 @@ public class MainView extends JFrame {
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        tabbedPane.addTab("Products", new ProductView(productController));
+        tabbedPane.addTab("Products", new ProductView(productController, stockMovementController));
         tabbedPane.addTab("Stock Movements", new StockMovementView(stockMovementController));
         tabbedPane.addTab("Suppliers", new SupplierView(supplierController));
         tabbedPane.addTab("Users", new UserView(userController));
-
         add(tabbedPane, BorderLayout.CENTER);
     }
 
