@@ -12,5 +12,4 @@ public interface StockMovementDAO {
     List<StockMovement> listMovements() throws Exception;
     List<StockMovement> listMovementsByType(MovementType type) throws Exception;
     List<StockMovement> listMovementsByProduct(Product product) throws Exception;
-    List<StockMovement> listMovementsBySupplier(Supplier supplier) throws Exception;
 }

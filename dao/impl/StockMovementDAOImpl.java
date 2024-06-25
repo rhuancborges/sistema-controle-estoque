@@ -5,7 +5,6 @@ import java.util.List;
 import dao.interfaces.StockMovementDAO;
 import entities.Product;
 import entities.StockMovement;
-import entities.Supplier;
 import entities.enums.MovementType;
 
 public class StockMovementDAOImpl implements StockMovementDAO {
@@ -66,18 +65,4 @@ public class StockMovementDAOImpl implements StockMovementDAO {
         }
     }
 
-    @Override
-    public List<StockMovement> listMovementsBySupplier(Supplier supplier) throws Exception {
-        try {
-            List<StockMovement> result = new ArrayList<>();
-            for (StockMovement movement : movements) {
-                if (movement.getSupplier() != null && movement.getSupplier().equals(supplier)) {
-                    result.add(movement);
-                }
-            }
-            return result;
-        } catch (Exception e) {
-            throw new Exception("Error listing stock movements by supplier", e);
-        }
-    }
 }

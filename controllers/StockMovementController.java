@@ -6,7 +6,6 @@ import java.util.List;
 import dao.interfaces.StockMovementDAO;
 import entities.Product;
 import entities.StockMovement;
-import entities.Supplier;
 import entities.enums.MovementType;
 
 public class StockMovementController {
@@ -52,22 +51,15 @@ public class StockMovementController {
         }
     }
 
-    public List<StockMovement> getMovementsBySupplier(Supplier supplier) throws Exception {
-        try {
-            return stockMovementDAO.listMovementsBySupplier(supplier);
-        } catch (Exception e) {
-            throw new Exception("Failed to retrieve stock movements by supplier: " + e.getMessage());
-        }
-    }
 
-    public void registerMovement(Product product, MovementType type, Double quantity, LocalDate date, Supplier supplier) {
+    public void registerMovement(Product product, MovementType type, Double quantity, LocalDate date) {
         if (product == null) {
             throw new IllegalArgumentException("Product cannot be null");
         }
         else if (quantity <= 0) {
             throw new IllegalArgumentException("Quantity must be greater than zero");
         }
-        StockMovement movement = new StockMovement(date, product, type, quantity, supplier);
+        StockMovement movement = new StockMovement(date, product, type, quantity);
         try {
             stockMovementDAO.registerMovement(movement);
         } catch (Exception e) {

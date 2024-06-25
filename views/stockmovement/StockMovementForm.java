@@ -49,9 +49,6 @@ public class StockMovementForm extends JFrame {
         String[] types = {"PURCHASE", "SALE", "ADJUSTMENT"}; // Atualizando tipos de movimentação
         typeComboBox = new JComboBox<>(types);
 
-        JLabel supplierLabel = new JLabel("Supplier ID:"); // Adicionando label do fornecedor
-        supplierField = new JTextField();
-
         JButton adjustButton = new JButton("Adjust Stock");
         adjustButton.addActionListener(new ActionListener() {
             @Override
@@ -61,14 +58,10 @@ public class StockMovementForm extends JFrame {
                     Double quantity = Double.parseDouble(quantityField.getText());
                     MovementType type = MovementType.valueOf((String) typeComboBox.getSelectedItem());
                     
-                    Integer supplierId = Integer.parseInt(supplierField.getText()); // Obtendo ID do fornecedor como um inteiro
-                    String supplierName = supplierField.getText(); // Obtendo nome do fornecedor
-                    String supplierCnpj = supplierField.getText();
-                    Supplier supplier = new Supplier(supplierId, supplierCnpj, supplierName); // Criando o objeto fornecedor
 
                     Product product = new Product(productName);
 
-                    stockMovementController.registerMovement(product, type, quantity, LocalDate.now(), supplier); // Passando o fornecedor para o controller
+                    stockMovementController.registerMovement(product, type, quantity, LocalDate.now()); // Passando o fornecedor para o controller
 
                     JOptionPane.showMessageDialog(StockMovementForm.this, "Stock adjusted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
@@ -84,8 +77,6 @@ public class StockMovementForm extends JFrame {
         add(quantityField);
         add(typeLabel);
         add(typeComboBox);
-        add(supplierLabel); // Adicionando label do fornecedor
-        add(supplierField); // Adicionando campo do fornecedor
         add(new JLabel()); // Empty cell
         add(adjustButton);
     }
