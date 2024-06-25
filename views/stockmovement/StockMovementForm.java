@@ -49,7 +49,7 @@ public class StockMovementForm extends JFrame {
         String[] types = {"PURCHASE", "SALE", "ADJUSTMENT"}; // Atualizando tipos de movimentação
         typeComboBox = new JComboBox<>(types);
 
-        JLabel supplierLabel = new JLabel("Supplier:"); // Adicionando label do fornecedor
+        JLabel supplierLabel = new JLabel("Supplier ID:"); // Adicionando label do fornecedor
         supplierField = new JTextField();
 
         JButton adjustButton = new JButton("Adjust Stock");

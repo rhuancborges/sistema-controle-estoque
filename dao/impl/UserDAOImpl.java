@@ -14,7 +14,13 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User user) throws Exception {
+        if(user.getUsername().equals("")){
+            throw new Exception("User with empty name is invalid!");
+        }
+        if(user.getPassword().equals("")){
+            throw new Exception("User with empty password is invalid!");
+        }
         users.add(user);
     }
 
@@ -29,7 +35,10 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers() throws Exception{
+        if(users.isEmpty()){
+            throw new Exception("There is no users saved");
+        }
         return new ArrayList<>(users);
     }
     
