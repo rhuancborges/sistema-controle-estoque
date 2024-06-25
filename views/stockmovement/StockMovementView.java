@@ -39,8 +39,8 @@ public class StockMovementView extends JPanel {
         stockMovementTableModel = new DefaultTableModel(new String[] { "ID", "Product ID", "Type", "Quantity", "Date" }, 0);
         stockMovementTable = new JTable(stockMovementTableModel);
 
-        JScrollPane scrollPane = new JScrollPane(stockMovementTable);
-        scrollPane.setPreferredSize(new Dimension(580, 350));
+        add(stockMovementTable.getTableHeader(), BorderLayout.NORTH);
+        add(stockMovementTable, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton addMovementButton = new JButton("Add Movement");
@@ -53,7 +53,6 @@ public class StockMovementView extends JPanel {
 
         buttonPanel.add(addMovementButton);
 
-        add(scrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
         refreshStockMovements();
