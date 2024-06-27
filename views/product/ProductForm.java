@@ -14,6 +14,7 @@ public class ProductForm extends JPanel {
     private JTextField barCodeField;
     private JTextField nameField;
     private JTextField priceField;
+    private JTextField quantityField;
     private ProductController productController;
 
     public ProductForm(ProductController productController) {

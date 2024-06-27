@@ -78,6 +78,7 @@ public class ProductView extends JPanel {
         StockMovementForm movementForm = new StockMovementForm(getStockMovementController());
         JOptionPane.showMessageDialog(this, movementForm, "Add Stock Movement", JOptionPane.PLAIN_MESSAGE);
         stockMovementView.refreshStockMovements();
+        refreshProducts();
     }
 
     private void refreshProducts() {

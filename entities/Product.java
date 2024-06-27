@@ -7,6 +7,7 @@ public class Product {
     private String barCode;
     private String name;
     private Double price;
+
     private Supplier supplier;
 
     public Product() {}

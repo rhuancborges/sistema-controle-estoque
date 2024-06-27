@@ -48,8 +48,8 @@ public class LoginView extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
+                String username = usernameField.getText().strip();
+                String password = new String(passwordField.getPassword()).strip();
                 if (userController.authenticateUser(username, password)) {
                     openMainView(); // Abre a MainView após o login bem-sucedido
                     dispose(); // Fecha a janela de login após o login bem-sucedido
