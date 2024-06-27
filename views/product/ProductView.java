@@ -15,17 +15,18 @@ import controllers.ProductController;
 import controllers.StockMovementController;
 import entities.Product;
 import views.stockmovement.StockMovementForm;
+import views.stockmovement.StockMovementView;
 
 public class ProductView extends JPanel {
     private static final long serialVersionUID = 1L;
     private ProductController productController;
-    private StockMovementController stockMovementController;
+    private StockMovementView stockMovementView;
     private JTable productTable;
     private DefaultTableModel productTableModel;
 
-    public ProductView(ProductController productController, StockMovementController stockMovementController) {
+    public ProductView(ProductController productController, StockMovementView stockMovementView) {
         this.productController = productController;
-        this.stockMovementController = stockMovementController;
+        this.stockMovementView = stockMovementView;
         initComponents();
     }
 
@@ -47,7 +48,7 @@ public class ProductView extends JPanel {
         addMovementButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                openMovementForm();
+                stockMovementView.openMovementForm();
             }
         });
 
@@ -74,8 +75,9 @@ public class ProductView extends JPanel {
     }
 
     private void openMovementForm() {
-        StockMovementForm movementForm = new StockMovementForm(stockMovementController);
-        movementForm.setVisible(true);
+        StockMovementForm movementForm = new StockMovementForm(getStockMovementController());
+        JOptionPane.showMessageDialog(this, movementForm, "Add Stock Movement", JOptionPane.PLAIN_MESSAGE);
+        stockMovementView.refreshStockMovements();
     }
 
     private void refreshProducts() {
@@ -91,5 +93,9 @@ public class ProductView extends JPanel {
             JOptionPane.showMessageDialog(this, "Error loading products: " + ex.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private StockMovementController getStockMovementController(){
+        return stockMovementView.getStockMovementController();
     }
 }

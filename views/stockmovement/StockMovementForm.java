@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -17,7 +17,7 @@ import entities.Product;
 import entities.Supplier;
 import entities.enums.MovementType;
 
-public class StockMovementForm extends JFrame {
+public class StockMovementForm extends JPanel {
     private static final long serialVersionUID = 1L;
     private JTextField productField;
     private JTextField quantityField;
@@ -34,9 +34,6 @@ public class StockMovementForm extends JFrame {
 	}
 
 	private void initComponents() {
-        setTitle("Stock Movement");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new GridLayout(5, 2));
 
         JLabel productLabel = new JLabel("Product:");
@@ -64,7 +61,7 @@ public class StockMovementForm extends JFrame {
                     stockMovementController.registerMovement(product, type, quantity, LocalDate.now()); // Passando o fornecedor para o controller
 
                     JOptionPane.showMessageDialog(StockMovementForm.this, "Stock adjusted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
+
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(StockMovementForm.this, "Error adjusting stock: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }

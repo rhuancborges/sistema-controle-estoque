@@ -28,9 +28,10 @@ public class StockMovementView extends JPanel {
         initComponents();
     }
     
-    private void openMovementForm() {
+    public void openMovementForm() {
         StockMovementForm movementForm = new StockMovementForm(stockMovementController);
-        movementForm.setVisible(true);
+        JOptionPane.showMessageDialog(this, movementForm, "Add Product", JOptionPane.PLAIN_MESSAGE);
+        refreshStockMovements();
     }
 
     private void initComponents() {
@@ -58,7 +59,7 @@ public class StockMovementView extends JPanel {
         refreshStockMovements();
     }
 
-    private void refreshStockMovements() {
+    public void refreshStockMovements() {
         stockMovementTableModel.setRowCount(0);
         try {
             List<StockMovement> movements = stockMovementController.getAllMovements();
@@ -73,4 +74,7 @@ public class StockMovementView extends JPanel {
         }
     }
 
+    public StockMovementController getStockMovementController(){
+        return stockMovementController;
+    }
 }
