@@ -37,7 +37,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public List<User> getAllUsers() throws Exception{
         if(users.isEmpty()){
-            throw new Exception("There is no users saved");
+            throw new Exception("There are no users saved");
         }
         return new ArrayList<>(users);
     }
