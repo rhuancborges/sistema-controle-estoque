@@ -12,6 +12,7 @@ public class SupplierForm extends JPanel {
     private JTextField idField;
     private JTextField cnpjField;
     private JTextField nameField;
+    private JTextField emailField;
     private SupplierController supplierController;
     private SupplierView parent;
 
@@ -22,7 +23,7 @@ public class SupplierForm extends JPanel {
     }
 
     private void initComponents() {
-        setLayout(new GridLayout(4, 2));
+        setLayout(new GridLayout(5, 2));
 
         JLabel idLabel = new JLabel("ID:");
         idField = new JTextField();
@@ -33,6 +34,9 @@ public class SupplierForm extends JPanel {
         JLabel nameLabel = new JLabel("Name:");
         nameField = new JTextField();
 
+        JLabel emailLabel = new JLabel("Email");
+        emailField = new JTextField();
+
         JButton addButton = new JButton("Add");
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -41,8 +45,9 @@ public class SupplierForm extends JPanel {
                     Integer id = Integer.parseInt(idField.getText());
                     String cnpj = cnpjField.getText();
                     String name = nameField.getText();
+                    String email = emailField.getText();
 
-                    Supplier supplier = new Supplier(id, cnpj, name);
+                    Supplier supplier = new Supplier(id, cnpj, name, email);
                     supplierController.registerSupplier(supplier);
                     JOptionPane.showMessageDialog(SupplierForm.this, "Supplier added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
                     parent.refreshSuppliers();
@@ -58,6 +63,8 @@ public class SupplierForm extends JPanel {
         add(cnpjField);
         add(nameLabel);
         add(nameField);
+        add(emailLabel);
+        add(emailField);
         add(new JLabel());
         add(addButton);
     }

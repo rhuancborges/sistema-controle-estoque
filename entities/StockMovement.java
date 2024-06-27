@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import entities.enums.MovementType;
 
 public class StockMovement {
+    private Integer id;
     private LocalDate date;
     private Product product;
     private MovementType type;
@@ -12,7 +13,8 @@ public class StockMovement {
     public StockMovement() {
     }
     
-    public StockMovement(LocalDate date, Product product, MovementType type, Double quantity) {
+    public StockMovement(Integer id, Product product, MovementType type, Double quantity, LocalDate date) {
+        this.id = id;
         this.date = date;
         this.product = product;
         this.type = type;
@@ -27,6 +29,7 @@ public class StockMovement {
         this.quantity = quantity;
 	}
 
+    public Integer getId(){ return id; }
 	public Product getProduct() {
         return product;
     }

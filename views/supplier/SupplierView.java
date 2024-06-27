@@ -29,7 +29,7 @@ public class SupplierView extends JPanel {
     private void initComponents() {
         setLayout(new BorderLayout());
 
-        supplierTableModel = new DefaultTableModel(new String[] { "ID", "Name", "Contact" }, 0);
+        supplierTableModel = new DefaultTableModel(new String[] { "ID", "Name", "CNPJ", "Email" }, 0);
         supplierTable = new JTable(supplierTableModel);
 
         JScrollPane scrollPane = new JScrollPane(supplierTable);
@@ -63,7 +63,7 @@ public class SupplierView extends JPanel {
         try {
             List<Supplier> suppliers = supplierController.getAllSuppliers();
             for (Supplier supplier : suppliers) {
-                Object[] row = { supplier.getId(), supplier.getName()};
+                Object[] row = { supplier.getId(), supplier.getName(), supplier.getCnpj(), supplier.getEmail()};
                 supplierTableModel.addRow(row);
             }
         } catch (Exception ex) {

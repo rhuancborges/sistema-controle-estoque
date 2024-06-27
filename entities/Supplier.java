@@ -6,14 +6,16 @@ public class Supplier {
     private Integer id;
     private String cnpj;
     private String name;
+    private String email;
 
     public Supplier() {
     }
     
-    public Supplier(Integer id, String cnpj, String name) {
+    public Supplier(Integer id, String cnpj, String name, String email) {
         setId(id);
         setCnpj(cnpj);
         setName(name);
+        setEmail(email);
     }
 
     public Integer getId() {
@@ -48,9 +50,13 @@ public class Supplier {
         }
         this.name = name;
     }
+    public String getEmail(){ return email;}
 
-    public String getSupplier() {
-        return "ID: " + id + ", CNPJ: " + cnpj + ", Name: " + name;
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public String getSupplier() {return "ID: " + id + ", CNPJ: " + cnpj + ", Name: " + name;
     }
 
     @Override

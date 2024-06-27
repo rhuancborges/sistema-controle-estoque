@@ -46,7 +46,7 @@ public class StorageForm extends JPanel {
                     double quantity = Double.parseDouble(quantityField.getText());
                     MovementType type = MovementType.valueOf((String) typeComboBox.getSelectedItem());
 
-                    StockMovement movement = new StockMovement(LocalDate.now(), product, type, quantity);
+                    StockMovement movement = new StockMovement(0, product, type, quantity, LocalDate.now());
                     stockMovementController.registerMovement(movement);
 
                     JOptionPane.showMessageDialog(StorageForm.this, "Stock adjusted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);

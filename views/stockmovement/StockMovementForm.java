@@ -22,7 +22,7 @@ public class StockMovementForm extends JPanel {
     private JTextField productField;
     private JTextField quantityField;
     private JComboBox<String> typeComboBox;
-    private JTextField supplierField; // Adicionando campo do fornecedor
+    private JTextField idField;
     private StockMovementController stockMovementController;
 
     public StockMovementForm(StockMovementController stockMovementController) {
@@ -34,9 +34,12 @@ public class StockMovementForm extends JPanel {
 	}
 
 	private void initComponents() {
-        setLayout(new GridLayout(5, 2));
+        setLayout(new GridLayout(6, 2));
 
-        JLabel productLabel = new JLabel("Product:");
+        JLabel idLabel = new JLabel("Movement ID:");
+        idField = new JTextField();
+
+        JLabel productLabel = new JLabel("Product ID:");
         productField = new JTextField();
 
         JLabel quantityLabel = new JLabel("Quantity:");
@@ -51,14 +54,15 @@ public class StockMovementForm extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String productName = productField.getText();
+                    Integer id = Integer.parseInt(idField.getText());
+                    Integer productID = Integer.parseInt(productField.getText());
                     Double quantity = Double.parseDouble(quantityField.getText());
                     MovementType type = MovementType.valueOf((String) typeComboBox.getSelectedItem());
                     
 
-                    Product product = new Product(productName);
+                    Product product = new Product(productID);
 
-                    stockMovementController.registerMovement(product, type, quantity, LocalDate.now()); // Passando o fornecedor para o controller
+                    stockMovementController.registerMovement(id, product, type, quantity, LocalDate.now()); // Passando o fornecedor para o controller
 
                     JOptionPane.showMessageDialog(StockMovementForm.this, "Stock adjusted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
 
@@ -68,6 +72,8 @@ public class StockMovementForm extends JPanel {
             }
         });
 
+        add(idLabel);
+        add(idField);
         add(productLabel);
         add(productField);
         add(quantityLabel);

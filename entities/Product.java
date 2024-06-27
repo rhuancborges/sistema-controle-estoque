@@ -14,6 +14,10 @@ public class Product {
     public Product(String name) {
         this.name = name;
     }
+
+    public Product(Integer id){
+        this.id = id;
+    }
     
     public Product(Integer id, String barCode, String name, Double price) {
         this.id = id;

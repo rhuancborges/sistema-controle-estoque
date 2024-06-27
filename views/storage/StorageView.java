@@ -63,7 +63,7 @@ public class StorageView extends JPanel {
         tableModel.setRowCount(0); // Limpando as linhas
         for (StockMovement movement : movements) {
             tableModel.addRow(new Object[]{
-                    movement.getDate(), movement.getProduct().getName(), movement.getType(), movement.getQuantity()
+                    movement.getDate(), movement.getProduct().getId(), movement.getType(), movement.getQuantity()
             });
         }
         System.out.println("Movements loaded successfully");

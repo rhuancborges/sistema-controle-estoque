@@ -64,7 +64,7 @@ public class StockMovementView extends JPanel {
         try {
             List<StockMovement> movements = stockMovementController.getAllMovements();
             for (StockMovement movement : movements) {
-                Object[] row = {movement.getProduct().getId(), movement.getProduct().getName(), movement.getType(),
+                Object[] row = {movement.getId(), movement.getProduct().getId(), movement.getType(),
                         movement.getQuantity(), movement.getDate()}; // Adiciona o nome do fornecedor
                 stockMovementTableModel.addRow(row);
             }

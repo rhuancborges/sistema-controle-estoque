@@ -26,7 +26,7 @@ public class Storage {
         if (product == null || quantity <= 0) {
             throw new IllegalArgumentException("Product must not be null and quantity must be positive");
         }
-        stockMovements.add(new StockMovement(LocalDate.now(), product, MovementType.ADJUSTMENT, quantity));
+        stockMovements.add(new StockMovement(0, product, MovementType.ADJUSTMENT, quantity, LocalDate.now()));
         products.add(product);
     }
 
@@ -37,7 +37,7 @@ public class Storage {
         else if (!products.contains(product)) {
             throw new IllegalArgumentException("Product not found in stock");
         }
-        stockMovements.add(new StockMovement(LocalDate.now(), product, MovementType.ADJUSTMENT, -quantity));
+        stockMovements.add(new StockMovement(0,  product, MovementType.ADJUSTMENT, -quantity, LocalDate.now()));
         products.remove(product);
     }
 

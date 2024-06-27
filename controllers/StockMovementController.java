@@ -52,14 +52,14 @@ public class StockMovementController {
     }
 
 
-    public void registerMovement(Product product, MovementType type, Double quantity, LocalDate date) {
+    public void registerMovement(Integer id, Product product, MovementType type, Double quantity, LocalDate date) {
         if (product == null) {
             throw new IllegalArgumentException("Product cannot be null");
         }
         else if (quantity <= 0) {
             throw new IllegalArgumentException("Quantity must be greater than zero");
         }
-        StockMovement movement = new StockMovement(date, product, type, quantity);
+        StockMovement movement = new StockMovement(id, product, type, quantity, date);
         try {
             stockMovementDAO.registerMovement(movement);
         } catch (Exception e) {
