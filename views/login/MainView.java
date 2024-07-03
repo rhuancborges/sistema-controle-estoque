@@ -4,14 +4,13 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
-import controllers.ProductController;
-import controllers.StockMovementController;
-import controllers.SupplierController;
-import controllers.UserController;
+
+import controllers.*;
 import dao.impl.ProductDAOImpl;
 import dao.impl.StockMovementDAOImpl;
 import dao.impl.SupplierDAOImpl;
 import dao.impl.UserDAOImpl;
+import entities.Storage;
 import views.product.ProductView;
 import views.stockmovement.StockMovementView;
 import views.supplier.SupplierView;
@@ -51,10 +50,13 @@ public class MainView extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                StockMovementDAOImpl stockMovementDAO = new StockMovementDAOImpl();
+                ProductDAOImpl productDAO = new ProductDAOImpl();
                 UserController userController = new UserController(new UserDAOImpl());
-                ProductController productController = new ProductController(new ProductDAOImpl());
-                StockMovementController stockMovementController = new StockMovementController(new StockMovementDAOImpl());
+                ProductController productController = new ProductController(productDAO);
+                StockMovementController stockMovementController = new StockMovementController(stockMovementDAO);
                 SupplierController supplierController = new SupplierController(new SupplierDAOImpl());
+                StorageController storageController = new StorageController(stockMovementDAO, productDAO);
                 new MainView(userController, productController, stockMovementController, supplierController).setVisible(true);
             }
         });

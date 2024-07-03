@@ -7,8 +7,8 @@ import entities.Storage;
 public class StorageDAOImpl implements StorageDAO {
     private Storage stock;
 
-    public StorageDAOImpl() {
-        this.stock = new Storage();
+    public StorageDAOImpl(StockMovementDAOImpl stockMovements, ProductDAOImpl products) {
+        this.stock = Storage.getInstance(stockMovements, products);
     }
 
     @Override

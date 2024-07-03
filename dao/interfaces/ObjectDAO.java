@@ -7,4 +7,5 @@ public interface ObjectDAO<T> {
     T searchObjectById(Integer id) throws Exception;
     T searchObjectByString(String searchString) throws Exception;
     List<T> listObject() throws Exception;
+    void removeObject(T object);
 }

@@ -52,4 +52,9 @@ public class SupplierDAOImpl implements ObjectDAO<Supplier> {
     public List<Supplier> listObject() throws Exception {
         return new ArrayList<>(suppliers);
     }
+
+    @Override
+    public void removeObject(Supplier supplier){
+        suppliers.remove(supplier);
+    }
 }

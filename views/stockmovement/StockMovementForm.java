@@ -13,7 +13,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import controllers.StockMovementController;
+import dao.impl.ProductDAOImpl;
+import dao.impl.StockMovementDAOImpl;
 import entities.Product;
+import entities.Storage;
 import entities.Supplier;
 import entities.enums.MovementType;
 
@@ -60,7 +63,13 @@ public class StockMovementForm extends JPanel {
                     MovementType type = MovementType.valueOf((String) typeComboBox.getSelectedItem());
                     
 
-                    Product product = new Product(productID);
+                    Product productTemp = Storage.getInstance(new StockMovementDAOImpl(), new ProductDAOImpl()).getProducts().searchObjectById(productID);
+                    Product product;
+                    if(productTemp != null){
+                        product = productTemp;
+                    } else {
+                        product = new Product(productID);
+                    }
 
                     stockMovementController.registerMovement(id, product, type, quantity, LocalDate.now()); // Passando o fornecedor para o controller
 

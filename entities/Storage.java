@@ -4,53 +4,65 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.impl.ProductDAOImpl;
+import dao.impl.StockMovementDAOImpl;
 import entities.enums.MovementType;
 
 public class Storage {
     private static Storage instance;
-    private List<StockMovement> stockMovements;
-    private List<Product> products;
+    private final StockMovementDAOImpl stockMovements;
+    private final ProductDAOImpl products;
 
-    public Storage() {
-        this.stockMovements = new ArrayList<>();
-        this.products = new ArrayList<>();
+    public Storage(StockMovementDAOImpl stockMovements, ProductDAOImpl products) {
+        this.stockMovements = stockMovements;
+        this.products = products;
     }
 
-    public static Storage getInstance() {
+    public static Storage getInstance(StockMovementDAOImpl stockMovements,  ProductDAOImpl products) {
         if (instance == null) {
-            instance = new Storage();
+            instance = new Storage(stockMovements, products);
         }
         return instance;
     }
-    public void addProduct(Product product, Double quantity) {
+    public void addProduct(Product product, Double quantity) throws Exception {
         if (product == null || quantity <= 0) {
             throw new IllegalArgumentException("Product must not be null and quantity must be positive");
         }
-        stockMovements.add(new StockMovement(0, product, MovementType.ADJUSTMENT, quantity, LocalDate.now()));
-        products.add(product);
+        stockMovements.registerMovement(new StockMovement(0, product, MovementType.ADJUSTMENT, quantity, LocalDate.now()));
+        products.registerObject(product);
     }
 
-    public void removeProduct(Product product, Double quantity) {
+    public void removeProduct(Product product, Double quantity) throws Exception {
         if (product == null || quantity <= 0) {
             throw new IllegalArgumentException("Product must not be null and quantity must be positive");
         }
-        else if (!products.contains(product)) {
+        else if (products.searchObjectById(product.getId()) != null) {
             throw new IllegalArgumentException("Product not found in stock");
         }
-        stockMovements.add(new StockMovement(0,  product, MovementType.ADJUSTMENT, -quantity, LocalDate.now()));
-        products.remove(product);
+        stockMovements.registerMovement(new StockMovement(0,  product, MovementType.ADJUSTMENT, -quantity, LocalDate.now()));
+        products.removeObject(product);
     }
 
-    public int checkProductQuantity(Product product) {
+    public int checkProductQuantity(Product product) throws Exception {
         if (product == null) {
             throw new IllegalArgumentException("Product must not be null");
         }
         int quantity = 0;
-        for (StockMovement movement : stockMovements) {
-            if (movement.getProduct().equals(product) && movement.getType() == MovementType.ADJUSTMENT) {
-                quantity += movement.getQuantity();
+        for (StockMovement movement : stockMovements.listMovements()) {
+            if (movement.getProduct().equals(product)) {
+                if(movement.getType() == MovementType.ADJUSTMENT){
+                    quantity = movement.getQuantity().intValue();
+                } else if(movement.getType() == MovementType.PURCHASE){
+                    quantity += movement.getQuantity();
+                } else {
+                    quantity -= movement.getQuantity();
+                }
             }
         }
         return quantity;
+    }
+
+    public ProductDAOImpl getProducts(){
+        return products;
     }
 }

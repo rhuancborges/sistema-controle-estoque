@@ -36,6 +36,14 @@ public class ProductView extends JPanel {
         // Inicializando o buttonPanel
         JPanel buttonPanel = new JPanel();
 
+        JButton addRefreshButton = new JButton("Refresh");
+        addRefreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                refreshProducts();
+            }
+        });
+
         JButton addProductButton = new JButton("Add Product");
         addProductButton.addActionListener(new ActionListener() {
             @Override
@@ -48,10 +56,11 @@ public class ProductView extends JPanel {
         addMovementButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                stockMovementView.openMovementForm();
+                openMovementForm();
             }
         });
 
+        buttonPanel.add(addRefreshButton);
         buttonPanel.add(addProductButton);
         buttonPanel.add(addMovementButton);
 
@@ -65,7 +74,6 @@ public class ProductView extends JPanel {
         add(productTable.getTableHeader(), BorderLayout.NORTH);
         add(productTable, BorderLayout.CENTER);
 
-        refreshProducts();
     }
 
     private void openProductForm() {
@@ -76,9 +84,10 @@ public class ProductView extends JPanel {
 
     private void openMovementForm() {
         StockMovementForm movementForm = new StockMovementForm(getStockMovementController());
-        JOptionPane.showMessageDialog(this, movementForm, "Add Stock Movement", JOptionPane.PLAIN_MESSAGE);
-        stockMovementView.refreshStockMovements();
+        JOptionPane.showMessageDialog(stockMovementView, movementForm, "Add Stock Movement", JOptionPane.PLAIN_MESSAGE);
         refreshProducts();
+        stockMovementView.refreshStockMovements();
+
     }
 
     private void refreshProducts() {

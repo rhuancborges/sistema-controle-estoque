@@ -52,4 +52,9 @@ public class ProductDAOImpl implements ObjectDAO<Product> {
         System.out.println("Listing products: " + products.size() + " products found");
         return new ArrayList<>(products);
     }
+
+    @Override
+    public void removeObject(Product product){
+        products.remove(product);
+    }
 }

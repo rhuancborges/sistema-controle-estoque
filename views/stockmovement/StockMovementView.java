@@ -16,10 +16,12 @@ import javax.swing.table.DefaultTableModel;
 
 import controllers.StockMovementController;
 import entities.StockMovement;
+import views.product.ProductView;
 
 public class StockMovementView extends JPanel {
     private static final long serialVersionUID = 1L;
     private StockMovementController stockMovementController;
+    private ProductView productView;
     private JTable stockMovementTable;
     private DefaultTableModel stockMovementTableModel;
 
@@ -30,7 +32,7 @@ public class StockMovementView extends JPanel {
     
     public void openMovementForm() {
         StockMovementForm movementForm = new StockMovementForm(stockMovementController);
-        JOptionPane.showMessageDialog(this, movementForm, "Add Product", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this, movementForm, "Add Stock Movement", JOptionPane.PLAIN_MESSAGE);
         refreshStockMovements();
     }
 

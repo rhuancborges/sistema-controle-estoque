@@ -1,5 +1,8 @@
 package entities;
 
+import dao.impl.ProductDAOImpl;
+import dao.impl.StockMovementDAOImpl;
+
 import java.util.Objects;
 
 public class Product {
@@ -102,8 +105,10 @@ public class Product {
         return Objects.equals(id, other.id);
     }
 
-	public Double getQuantity() {
-		return (double) Storage.getInstance().checkProductQuantity(this);
+	public Double getQuantity() throws Exception{
+		return (double) Storage.getInstance(new StockMovementDAOImpl(), new ProductDAOImpl()).checkProductQuantity(this);
+        // A criação de instâncias de StockMovementDAOImpl e ProductDAOImpl dentro de getinstance() é apenas para não gerar
+        // erro de compilação, uma vez que a instância ÚNICA de Storage é criada na linha nº 61 da classe MainView
 	}
 
 	public Supplier getSupplier() {
